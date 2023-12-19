@@ -4,6 +4,8 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const app = express();
 dotenv.config();
+const router = require("./routes/userRoute");
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -22,7 +24,4 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-
-app.get("/", (req, res) => {
-  res.send("hello there !!");
-});
+app.use(router);
