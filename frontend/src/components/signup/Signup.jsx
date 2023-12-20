@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Signup = () => {
@@ -13,18 +12,51 @@ const Signup = () => {
   const [message, setMessage] = useState("");
   const [showOtpInput, setShowOtpInput] = useState(false);
 
+  // Email validation function
+  const isEmailValid = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Password validation function
+  const isPasswordValid = (password) => {
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/;
+    return passwordRegex.test(password);
+  };
+
   const nameChangeHandle = (e) => setName(e.target.value);
   const emailChangeHandle = (e) => setEmail(e.target.value);
   const passwordChangeHandle = (e) => setPassword(e.target.value);
   const confirmPasswordChangeHandle = (e) => setConfirmPassword(e.target.value);
   const onOtpChange = (e) => setOtp(e.target.value);
 
+  const displayErrorMessage = (errorMessage) => {
+    setMessage(errorMessage);
+    setTimeout(() => {
+      setMessage("");
+    }, 5000);
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
+      // Validate email format
+      if (!isEmailValid(email)) {
+        displayErrorMessage("Please enter a valid email address.");
+        return;
+      }
+
+      // Validate password format
+      if (!isPasswordValid(password)) {
+        displayErrorMessage(
+          "Password must meet the following criteria:\n- At least 6 characters\n- At least 1 numeral\n- At least 1 alphabet\n- Use at least one of the following special characters: !@#$%^&*"
+        );
+        return;
+      }
+
       // Add password confirmation check
       if (password !== confirmPassword) {
-        console.log("Passwords do not match");
+        displayErrorMessage("Passwords do not match");
         return;
       }
 
@@ -33,15 +65,17 @@ const Signup = () => {
         email,
         password,
       });
-      console.log(response.data); // Assuming the server sends back some data
+
+      // console.log(response.data);
 
       setMessage("Please check your email for OTP.");
       setShowOtpInput(true); // Show OTP input after successful registration
     } catch (error) {
       console.log(error);
-      setMessage(`Error: ${error.response.data.error}`);
+      displayErrorMessage(`Error: ${error.response.data.error}`);
     }
   };
+
   const handleVerifyOTP = async () => {
     try {
       const response = await axios.post("http://localhost:5000/otp-verify", {
@@ -58,7 +92,7 @@ const Signup = () => {
       setTimeout(() => {
         setMessage("");
       }, 2000);
-      setMessage(`Error: ${error.response.data.error}`);
+      displayErrorMessage(`Error: ${error.response.data.error}`);
     }
   };
 
@@ -124,7 +158,11 @@ const Signup = () => {
       >
         Sign Up
       </button>
-      {message && <p className="mt-3">{message}</p>}
+      {message && (
+        <p className="mt-3" style={{ color: "red", fontSize: "0.8rem" }}>
+          {message}
+        </p>
+      )}
       {showOtpInput && (
         <div className="mb-3">
           <label htmlFor="otp" className="form-label">

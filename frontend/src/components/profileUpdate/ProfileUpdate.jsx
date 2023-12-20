@@ -88,6 +88,7 @@ const ProfileUpdate = ({ userData, onUpdate, onCancel }) => {
               value={updatedData?.gender}
               onChange={handleInputChange}
             >
+              <option value="" defauult></option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Other">Other</option>
@@ -99,7 +100,7 @@ const ProfileUpdate = ({ userData, onUpdate, onCancel }) => {
             </label>
             <DatePicker
               className="form-control"
-              selected={new Date(updatedData?.dob)}
+              selected={new Date(updatedData?.dob || Date.now())}
               onChange={handleDateChange}
               dateFormat="dd MMM yyyy"
             />
