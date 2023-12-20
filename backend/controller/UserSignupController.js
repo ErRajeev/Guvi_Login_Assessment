@@ -57,11 +57,24 @@ const sendOTPEmail = async (email, otp) => {
     },
   });
 
+  // Sending mail format..
   const mailOptions = {
     from: "er.rajeev.mca@gmail.com",
     to: email,
     subject: "OTP Verification",
-    text: `Your OTP is: ${otp}. Use this code to complete the verification.`,
+    text: `Hello ${_name},
+
+    We're excited to welcome you to the GUVI community! To ensure the security of your account, please use the following one-time verification code:
+    
+    🌟 Your Exclusive Code: ${otp}
+    
+    Simply enter this code during the verification process, and you'll be all set to explore the exciting world of GUVI.
+    
+    Thank you for choosing GUVI. We can't wait to see you succeed on your learning journey!
+    
+    Best regards,
+    Rajeev Ranjan
+    GUVI Support Team`,
   };
 
   return transporter.sendMail(mailOptions);
