@@ -14,6 +14,9 @@ const Signup = async (req, res) => {
   if (!email) {
     return res.status(400).json({ error: "Email is required" });
   }
+  if (!password) {
+    return res.status(400).json({ error: "Email is required" });
+  }
 
   // Check if the user already exists
 
@@ -43,7 +46,7 @@ const Signup = async (req, res) => {
 
     res.json({ success: true });
   } catch (error) {
-    console.error("Error during registration:", error);
+    // console.error("Error during registration:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -85,7 +88,7 @@ const otpVerification = async (req, res) => {
 
   const user = users[email];
   if (!user) {
-    return res.status(404).json({ error: "User not found" });
+    return res.status(404).json({ error: "User Profile not found !!" });
   }
 
   try {

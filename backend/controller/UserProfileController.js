@@ -7,7 +7,7 @@ const getUserById = async (req, res) => {
     if (getDataById) {
       res.status(200).json(getDataById);
     } else {
-      res.status(404).json("User not found");
+      res.status(404).json("User Profile not found !!");
     }
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -19,6 +19,7 @@ const updateUser = async (req, res) => {
     const { id } = req.params;
     const { name, email, gender, mobile, age, dob } = req.body;
 
+    // console.log(id, req.body);
     // Add dob to the update object
     const updateUser = await User.findByIdAndUpdate(
       id,
@@ -27,7 +28,7 @@ const updateUser = async (req, res) => {
     );
     // console.log(req.body);
     if (updateUser) {
-      res.status(200).json({ message: "User Updated" });
+      res.status(200).json({ message: "Profile Updated successfully" });
     }
   } catch (error) {
     console.error(error);
