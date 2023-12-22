@@ -61,15 +61,15 @@ const Signup = () => {
       }
 
       const response = await axios.post("http://localhost:5000/reg", {
-        name,
-        email,
-        password,
+        name: name,
+        email: email.toLowerCase(),
+        password: password,
       });
 
       // console.log(response.data);
 
       setMessage("Please check your email for OTP.");
-      setShowOtpInput(true); // Show OTP input after successful registration
+      setShowOtpInput(true);
     } catch (error) {
       console.log(error);
       displayErrorMessage(`Error: ${error.response.data.error}`);

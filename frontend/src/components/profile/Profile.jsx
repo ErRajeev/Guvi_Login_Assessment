@@ -5,6 +5,7 @@ import { authContext } from "../context/AuthenticationProvider";
 
 const Profile = () => {
   const [userData, setUserData] = useState({});
+  const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
@@ -28,10 +29,17 @@ const Profile = () => {
   // Callback function use to Upadate the data
   const handleUpdate = async (updatedData) => {
     try {
-      await axios.patch(
+      const response = await axios.patch(
         `http://localhost:5000/profile/${authState.id}`,
         updatedData
       );
+      console.log(response);
+      if (response.status === 200) {
+        setSuccess("Profile Updated successfully");
+        setTimeout(() => {
+          setSuccess("");
+        }, 2000);
+      }
       setUserData(updatedData);
       setIsEditing(false);
     } catch (error) {
@@ -52,8 +60,11 @@ const Profile = () => {
 
   return (
     <div className="container my-5">
-      <h3 className="text-center mb-3 display-6">User Profile</h3>
-
+      {success && (
+        <div className="alert alert-success text-center" role="alert">
+          {success}
+        </div>
+      )}
       {loading ? (
         <p className="text-center fs-5">Loading...</p>
       ) : error ? (

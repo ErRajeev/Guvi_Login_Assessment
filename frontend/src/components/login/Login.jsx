@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { authContext } from "../context/AuthenticationProvider";
 
 const Login = () => {
@@ -16,8 +16,8 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const response = await axios.post("http://localhost:5000/login", {
-        email,
-        password,
+        email: email.toLowerCase(),
+        password: password,
       });
       const result = response.data;
 
@@ -90,6 +90,15 @@ const Login = () => {
       <button className="btn btn-success" onClick={handleLogin}>
         Login
       </button>
+      <br />
+      <div className="mt-3">
+        <strong>
+          Don't have an account ?
+          <Link to="/reg" className="btn btn-link">
+            Sign Up
+          </Link>
+        </strong>
+      </div>
     </div>
   );
 };

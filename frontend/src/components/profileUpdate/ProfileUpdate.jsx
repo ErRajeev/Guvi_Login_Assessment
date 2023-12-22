@@ -34,18 +34,20 @@ const ProfileUpdate = ({ userData, onUpdate, onCancel }) => {
               name="name"
               value={updatedData?.name}
               onChange={handleInputChange}
+              required
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email
+            <label htmlFor="age" className="form-label">
+              Age
             </label>
             <input
-              type="email"
+              type="text"
               className="form-control"
-              id="email"
-              name="email"
-              value={updatedData?.email}
+              id="age"
+              name="age"
+              required
+              value={updatedData?.age}
               onChange={handleInputChange}
             />
           </div>
@@ -58,6 +60,7 @@ const ProfileUpdate = ({ userData, onUpdate, onCancel }) => {
               className="form-control"
               id="mobile"
               name="mobile"
+              required
               value={updatedData?.mobile}
               onChange={handleInputChange}
             />
@@ -65,15 +68,16 @@ const ProfileUpdate = ({ userData, onUpdate, onCancel }) => {
         </div>
         <div className="col-md-6">
           <div className="mb-3">
-            <label htmlFor="age" className="form-label">
-              Age
+            <label htmlFor="email" className="form-label">
+              Email
             </label>
             <input
-              type="text"
+              type="email"
               className="form-control"
-              id="age"
-              name="age"
-              value={updatedData?.age}
+              id="email"
+              name="email"
+              value={updatedData?.email}
+              disabled
               onChange={handleInputChange}
             />
           </div>
@@ -85,6 +89,7 @@ const ProfileUpdate = ({ userData, onUpdate, onCancel }) => {
               className="form-select"
               id="gender"
               name="gender"
+              required
               value={updatedData?.gender}
               onChange={handleInputChange}
             >

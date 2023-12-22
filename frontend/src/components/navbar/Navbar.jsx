@@ -40,19 +40,31 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link to="/" className="nav-link active" aria-current="page">
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link to="/reg" className="nav-link active" aria-current="page">
-                  SignUp
-                </Link>
-              </li>
+              {!authState.auth && (
+                <li className="nav-item">
+                  <Link to="/" className="nav-link active" aria-current="page">
+                    Login
+                  </Link>
+                </li>
+              )}
+              {!authState.auth && (
+                <li>
+                  <Link
+                    to="/reg"
+                    className="nav-link active"
+                    aria-current="page"
+                  >
+                    SignUp
+                  </Link>
+                </li>
+              )}
               {authState.auth && (
                 <li className="nav-item">
-                  <Link to="/profile" className="nav-link">
+                  <Link
+                    to="/profile"
+                    className="nav-link active"
+                    aria-current="page"
+                  >
                     Profile
                   </Link>
                 </li>
