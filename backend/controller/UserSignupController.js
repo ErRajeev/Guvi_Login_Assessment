@@ -1,5 +1,9 @@
 const speakeasy = require("speakeasy");
 const nodemailer = require("nodemailer");
+
+const AdminEmail = process.env.AdminEmail;
+const AdminPassword = process.env.AdminPassword;
+
 const User = require("../model/userModel");
 const users = {};
 let _name, _password, _email;
@@ -55,8 +59,8 @@ const sendOTPEmail = async (email, otp) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "er.rajeev.mca@gmail.com",
-      pass: "tpxwssmhvkuexuqx",
+      user: AdminEmail,
+      pass: AdminPassword,
     },
   });
 
